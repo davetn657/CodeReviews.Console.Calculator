@@ -15,15 +15,15 @@ while (!endApp)
     string? numInput2 = string.Empty;
     double result = 0;
 
-    Console.Write("Type a number or hist (for past calculations), and then press Enter: ");
+    Console.Write("Type a number or h (for past calculations), and then press Enter: ");
     numInput1 = Console.ReadLine();
 
     double cleanNum1 = 0;
-    if(numInput1 == "hist" && calculations.Count > 0)
+    if(numInput1 == "h" && calculations.Count > 0)
     {
         numInput1 = GetResultFromHistory();
     }
-    else if(numInput1 == "hist" && calculations.Count == 0)
+    else if(numInput1 == "h" && calculations.Count == 0)
     {
         Console.WriteLine("Couldn't find any past calculations!");
     }
@@ -34,16 +34,16 @@ while (!endApp)
         numInput1 = Console.ReadLine();
     }
 
-    Console.Write("Type another number or hist (for past calculations), and them press Enter: ");
+    Console.Write("Type another number or h (for past calculations), and them press Enter: ");
     numInput2 = Console.ReadLine();
 
     double cleanNum2 = 0;
 
-    if (numInput2 == "hist" && calculations.Count > 0)
+    if (numInput2 == "h" && calculations.Count > 0)
     {
         numInput2 = GetResultFromHistory();
     }
-    else if (numInput1 == "hist" && calculations.Count == 0)
+    else if (numInput1 == "h" && calculations.Count == 0)
     {
         Console.WriteLine("Couldn't find any past calculations!");
     }
@@ -60,6 +60,7 @@ while (!endApp)
     Console.WriteLine("\tm - Multiply");
     Console.WriteLine("\td - Divide");
     Console.WriteLine("\tpwr - Power");
+    Console.WriteLine("\tx - 10x");
     Console.WriteLine("\tsqrt - Square Root (only on 1st number)");
     Console.WriteLine("\tsin - Sine (only on 1st number)");
     Console.WriteLine("\tcos - Cosine (only on 1st number)");
@@ -68,7 +69,7 @@ while (!endApp)
 
     string? op = Console.ReadLine();
 
-    if(op == null || ! Regex.IsMatch(op, "[a|s|m|d|pwr|sqrt|sin|cos|tan]"))
+    if(op == null || ! Regex.IsMatch(op, "[a|s|m|d|pwr|x|sqrt|sin|cos|tan]"))
     {
         Console.WriteLine("ERROR: Unrecognized input.");
     }
@@ -101,12 +102,16 @@ while (!endApp)
     Console.Write("Press 'n' and Enter to close the app,\nPress 'h' and Enter to display past calculations,\nor press any other key and Enter to continue: ");
     input = Console.ReadLine();
     if (input == "n") endApp = true;
-    else if(input == "h") CalculationHistory();
+    else if (input == "h")
+    {
+        CalculationHistory();
+        Console.Write("Press 'n' and Enter to close the app,\nPress 'd' and Enter to delete history,\nor press any other key and Enter to continue:");
+        input = Console.ReadLine();
+        if (input == "n") endApp = true;
+        else if (input == "d") calculations.Clear();
+    }
 
-    Console.Write("Press 'n' and Enter to close the app,\nPress 'd' and Enter to delete history,\nor press any other key and Enter to continue:");
-    input = Console.ReadLine();
-    if (input == "n") endApp = true;
-    else if (input == "d") calculations.Clear();
+    
     Console.WriteLine("\n");
 }
 

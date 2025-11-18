@@ -1,4 +1,6 @@
-﻿internal class Calculation
+﻿using System.Text.RegularExpressions;
+
+internal class Calculation
 {
     string operation;
     string number1;
@@ -15,7 +17,14 @@
 
     public void Display()
     {
-        Console.WriteLine($"{number1} {operation} {number2} = {result}");
+        if (Regex.IsMatch(this.operation, "√|10x|sin|cos|tan"))
+        {
+            Console.WriteLine($"{operation}({number1}) = {result}");
+        }
+        else
+        {
+            Console.WriteLine($"{number1} {operation} {number2} = {result}");
+        }
     }
 
     public string GetResult()
@@ -35,10 +44,12 @@
                 return operation = "*";
             case "d":
                 return operation = "/";
-            case "rt":
+            case "sqrt":
                 return operation = "√";
             case "pwr":
                 return operation = "^";
+            case "x":
+                return operation = "10x";
             default:
                 return operation = op;
         }
